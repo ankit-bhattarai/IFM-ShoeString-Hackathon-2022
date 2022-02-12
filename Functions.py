@@ -65,5 +65,4 @@ class EnergyMonitoring(df):
     def outputlist():
         outputs = []
         outputs.append(self.sensor_name, self.sensor_type)
-        ;
         
