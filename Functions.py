@@ -62,7 +62,7 @@ class EnergyMonitoring(df):
         self.total_enery = total_energy
         self.total_cost = total_cost
 
-    def outputlist():
-        outputs = []
-        outputs.append(self.sensor_name, self.sensor_type)
+#    def outputlist():
+ #       outputs = []
+  #      outputs.append(self.sensor_name, self.sensor_type)
         
