@@ -42,27 +42,21 @@ def current_power(df):
 def predict_cost(df):
     """need to upate"""
     return cost_function(df)
-
+def total_energy(df):
+    energy = (df.Power.sum()) / (36 * 10 ** 5)
+    return energy
 
 def summary(dataframe):
-    total_energy = dataframe.Power.sum
+    total_energy1 = total_energy(dataframe)
     total_cost = cost_function(dataframe)
     instantaneous_power = current_power(dataframe)
     expected_cost = predict_cost(dataframe)
-    data_dict = {"Total_Energy": total_energy, "Total_cost": total_cost, "Current_Power": instantaneous_power,
+    data_dict = {"Total_Energy": total_energy1, "Total_cost": total_cost, "Current_Power": instantaneous_power,
                  "Expected_Cost": expected_cost}
     return data_dict
-
-class EnergyMonitoring(df):
-    def __init__(self, sensor_name, sensor_type, state, current_power, total_energy, total_cost):
-        self.sensor_name = sensor_name
-        self.sensor_type = sensor_type
-        self.state = state
-        self.current_power  = current_power
-        self.total_enery = total_energy
-        self.total_cost = total_cost
-
-#    def outputlist():
- #       outputs = []
-  #      outputs.append(self.sensor_name, self.sensor_type)
-        
+def list_of_robots(df):
+    list1=[]
+    for i in range(len(df)):
+        if df.Machine[i] not in list1:
+            list1.append(df.Machine[i])
+    return list1
