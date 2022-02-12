@@ -36,7 +36,7 @@ def state(current_power, threshold_dictionary):
 
 def summary(dataframe, time):
   total_energy = dataframe.Power.sum
-  total_cost = cost(dataframe)
+  total_cost = cost_function(dataframe)
   current_power = current_power(dataframe)
   expected_cost = predict_cost()
   data_dict = {"Total_Energy" : total_energy, "Total_cost": total_cost, "Current_Power": current_power, "Expected_Cost" : expected_cost}
