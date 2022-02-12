@@ -52,3 +52,17 @@ def summary(dataframe):
     data_dict = {"Total_Energy": total_energy, "Total_cost": total_cost, "Current_Power": instantaneous_power,
                  "Expected_Cost": expected_cost}
     return data_dict
+
+class EnergyMonitoring(df):
+    def __init__(self, sensor_name, sensor_type, state, current_power, total_energy, total_cost):
+        self.sensor_name = sensor_name
+        self.sensor_type = sensor_type
+        self.state = state
+        self.current_power  = current_power
+        self.total_enery = total_energy
+        self.total_cost = total_cost
+
+    def outputlist():
+        outputs = []
+        outputs.append(self.sensor_name, self.sensor_type)
+        
