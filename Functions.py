@@ -1,22 +1,20 @@
 #Here add all required functions.
-from _datetime import datetime
-
 import pandas as pd
 
-
-def cost_function(time,power,start,end):
-    ''
-    energy=0
-    cost=0
-    dt=(time[-1]-time[0])/len(time)
-    newtime=time.copy()
-    for timp in newtime:
-        date_time_object=datetime.strftime(timp,'%H:%M:%S')
-    for i in range(1,len(time)):
-        energy+=power[i]*dt
+def cost_function(df,dt=1,start='08:30:00',end='22:30:00',low_price=0.08,high_price=0.121):
+    low1=df.between_time('00:00:00',start)
+    high=df.between_time(start,end)
+    low2=df.between_time(end,'23:59:59')
+    #Calculate energy consumption(kWh) during different periods
+    energy_low = (low1.Power.sum()+low2.Power.sum())/(36*10**5)
+    energy_high = (high.Power.sum())/(36*10**5)
+    cost_low=energy_low*low_price
+    cost_high=energy_high*high_price
+    cost=cost_low+cost_high
+    return cost
 
 def read_example_csv():
-    df = pd.read_csv('example_data.csv', sep=' ', index_col=0, parse_dates=True)
+    df = pd.read_csv('example_data.csv', sep=',', index_col=0, parse_dates=True)
     return df
 
 
