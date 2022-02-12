@@ -21,6 +21,7 @@ def read_example_csv():
 
 
 ex_threshold_dictionary = {"off" : [0,200], "idle" : [201,500], "on": [501]}
+current_power = current_power(df)
 def state(current_power, threshold_dictionary):
   off_upper_limit = threshold_dictionary.get("off")[1]
   idle_lower_limit = off_upper_limit + 1
@@ -32,3 +33,11 @@ def state(current_power, threshold_dictionary):
     return "Idle"
   else:
     return "Off"
+
+def summary(dataframe, time):
+  total_energy = dataframe.Power.sum
+  total_cost = cost(dataframe)
+  current_power = current_power(dataframe)
+  expected_cost = predict_cost()
+  data_dict = {"Total_Energy" : total_energy, "Total_cost": total_cost, "Current_Power": current_power, "Expected_Cost" : expected_cost}
+  return data_dict
