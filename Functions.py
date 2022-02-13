@@ -78,7 +78,7 @@ class Summary:
 robots_df = pd.DataFrame(columns=["Robot Type", "Total Daily Energy", "Total Daily Cost", "Current Power", "Current State",
                                   "Duration on", "Expeced Times of Operation"])
 
-total_power_df = pd.DataFrame(columns=["Total Power"], index=pd.DatetimeIndex())
+total_power_df = pd.DataFrame(columns=["Total Power"], index=pd.DatetimeIndex([]))
 
 def list_of_robots(df):
     list1=[]
