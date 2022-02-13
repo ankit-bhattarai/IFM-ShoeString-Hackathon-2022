@@ -1,3 +1,6 @@
+"""
+Program used for creating the React interface.
+"""
 from dash import Dash, dcc, html, Input, Output, callback, dash_table
 import plotly.express as px
 app = Dash(__name__, suppress_callback_exceptions=True)
