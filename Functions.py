@@ -1,7 +1,6 @@
 # Here add all required functions.
 import pandas as pd
-import time
-
+import influxdb_client
 
 def cost_function(df, dt=1, start='08:30:00', end='22:30:00', low_price=0.08, high_price=0.121):
     low1 = df.between_time('00:00:00', start)
@@ -82,3 +81,52 @@ def list_of_robots(df):
         if df.Machine[i] not in list1:
             list1.append(df.Machine[i])
     return list1
+def create_df(argument,time_data=30, option='field'):
+    '''
+    Introduce as argument: 'power', 'daily_cost', "daily energy"
+    '''
+    token = 'SMVTNYq5kEoEgAXcqvKFlo9BZbKdyRiLcXPES3TGFBrsQZmChboUEgrbOD1cESm3237IEOaqOOnUwUMOkZt7BQ=='
+    org = 'ab2731@cam.ac.uk'
+    bucket = 'Sensor Data'
+
+    total_power_df = pd.DataFrame(columns=[argument], index=pd.DatetimeIndex([]))
+
+    # Store the URL of your InfluxDB instance
+    url = "https://europe-west1-1.gcp.cloud2.influxdata.com"
+    client = influxdb_client.InfluxDBClient(
+        url=url,
+        token=token,
+        org=org
+    )
+    query_api = client.query_api()
+    query = f' from(bucket:"Sensor Data")\
+    |> range(start: -{time_data}s)\
+    |> filter(fn:(r) => r._{option} == "{argument}" ) '
+    result = query_api.query(org=org, query=query)
+    results = []
+    for table in result:
+        for record in table.records:
+            power, timeq = record.__dict__['values']['_value'], record.__dict__['values']['_time']
+            total_power_df.loc[timeq] = power
+
+    return total_power_df
+#given dataframe and the argument(power, cost etc),this function updates dataframe.
+def df_update(df,argument):
+    df_add = create_df(argument=argument,time_data=10)
+    df=df.append(df_add)
+    return df
+def all_df():
+    list1=["Robot Type", "Total Daily Energy", "Total Daily Cost", "Current Power", "Current State", "Duration on", "Expected_Times_of_Operation", "peak_hours", "peak_hour_energies"]
+    #for argument in list2:
+    #    df=create_df(argument=argument)
+    #    all[argument]=df.values
+    df1=create_df('power')
+    df3=create_df('daily_cost')
+    df4=create_df('daily_energy')
+    b=min(df1.shape[0],df3.shape[0],df4.shape[0])
+    df1['power']=df1['power'][:b]
+    df1['Total Daily Energy']=df4.values[:b]
+    df1['Total Daily Cost']=df3.values[:b]
+#    df1['Current State'] = df1.power.apply(state)
+    return df1
+

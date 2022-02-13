@@ -1,6 +1,5 @@
 import influxdb_client
 import pandas as pd
-import numpy as np
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 robots_df = pd.DataFrame(columns=["Robot Type", "Total Daily Energy", "Total Daily Cost", "Current Power", "Current State",
@@ -18,17 +17,15 @@ client = influxdb_client.InfluxDBClient(
     org=org
 )
 query_api = client.query_api()
-query = ' from(bucket:"Sensor Data")\
-|> range(start: -30m)\
-|> filter(fn:(r) => r._field == "power" ) '
+query = f' from(bucket:"Sensor Data")\
+|> range(start: -30s)\
+|> filter(fn:(r) => r._field == "{argument}" ) '
 result = query_api.query(org=org, query=query)
 results = []
-for table in result[:4]:
+for table in result:
   for record in table.records:
-    #print(record)
-    results.append( record.get_value())
-    #total_power_df[]=
-#length = len(results)
-#times = np.arange(length)
-#print(times)
-print(results)
+    power,timeq=record.__dict__['values']['_value'],record.__dict__['values']['_time']
+    total_power_df.loc[timeq]=power
+    print(power,timeq)
+
+
