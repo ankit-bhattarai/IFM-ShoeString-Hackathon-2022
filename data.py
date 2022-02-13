@@ -1,3 +1,6 @@
+"""
+Here we define a class for sensors and define a cost function.
+"""
 import datetime
 from datetime import time
 
