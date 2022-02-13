@@ -1,3 +1,6 @@
+"""
+In this file we implement data collection from the raspberry pi and send it to a cloud. 
+"""
 import time
 import board
 import adafruit_ina260
