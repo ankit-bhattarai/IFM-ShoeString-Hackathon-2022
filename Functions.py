@@ -76,7 +76,7 @@ class Summary:
 
 
 robots_df = pd.DataFrame(columns=["Robot Type", "Total Daily Energy", "Total Daily Cost", "Current Power", "Current State",
-                                  "Duration on", "Expeced Times of Operation"])
+                                  "Duration on", "Expeced Times of Operation", "Hours on during Peak hours"])
 
 total_power_df = pd.DataFrame(columns=["Total Power"], index=pd.DatetimeIndex([]))
 
@@ -86,3 +86,4 @@ def list_of_robots(df):
         if df.Machine[i] not in list1:
             list1.append(df.Machine[i])
     return list1
+
