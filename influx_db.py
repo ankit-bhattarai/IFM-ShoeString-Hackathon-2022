@@ -1,3 +1,6 @@
+"""
+Here we collect data to the monitoring device and create dataframes using data fetched.
+"""
 from datetime import datetime
 from dotenv import load_dotenv, main
 import os
