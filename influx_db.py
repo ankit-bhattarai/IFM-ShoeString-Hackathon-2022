@@ -3,14 +3,14 @@ from dotenv import load_dotenv, main
 import os
 import urllib3
 urllib3.disable_warnings()
-from influxdb_client import InfluxDBClient, Point, WritePrecision
+from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 load_dotenv()
 # You can generate a Token from the "Tokens Tab" in the UI
-token = os.getenv('TOKEN')
-org = os.getenv('ORG')
-bucket = os.getenv('BUCKET')
+token = 'SMVTNYq5kEoEgAXcqvKFlo9BZbKdyRiLcXPES3TGFBrsQZmChboUEgrbOD1cESm3237IEOaqOOnUwUMOkZt7BQ=='
+org = 'ab2731@cam.ac.uk'
+bucket = 'Sensor Data'
 
 
 class InfluxClient:
