@@ -42,13 +42,21 @@ def current_power(df):
 def predict_cost(df):
     """need to upate"""
     return cost_function(df)
-
+def total_energy(df):
+    energy = (df.Power.sum()) / (36 * 10 ** 5)
+    return energy
 
 def summary(dataframe):
-    total_energy = dataframe.Power.sum
+    total_energy1 = total_energy(dataframe)
     total_cost = cost_function(dataframe)
     instantaneous_power = current_power(dataframe)
     expected_cost = predict_cost(dataframe)
-    data_dict = {"Total_Energy": total_energy, "Total_cost": total_cost, "Current_Power": instantaneous_power,
+    data_dict = {"Total_Energy": total_energy1, "Total_cost": total_cost, "Current_Power": instantaneous_power,
                  "Expected_Cost": expected_cost}
     return data_dict
+def list_of_robots(df):
+    list1=[]
+    for i in range(len(df)):
+        if df.Machine[i] not in list1:
+            list1.append(df.Machine[i])
+    return list1
