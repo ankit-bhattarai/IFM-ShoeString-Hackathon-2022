@@ -45,3 +45,4 @@ class Sensor:
     def line_protocol(self):
         return "{},sensor={},state={} power={},daily_energy={},daily_cost={:.3f},expected_cost={:.3f}".format(self.name, self.name, self.state, self.instantaneous_power, self.energy_consumed, self.current_cost, self.expected_cost)
 
+
