@@ -83,8 +83,11 @@ def list_of_robots(df):
     return list1
 def create_df(argument,time_data=30, option='field'):
     '''
-    Introduce as argument: 'power', 'daily_cost', "daily energy"
+    Introduce as argument: 'power', 'daily_cost', "daily energy".
+    Returns a dataframe that contains time and value of argument.
+    Optional arg time_Data represents number of seconds of data collection.
     '''
+
     token = 'SMVTNYq5kEoEgAXcqvKFlo9BZbKdyRiLcXPES3TGFBrsQZmChboUEgrbOD1cESm3237IEOaqOOnUwUMOkZt7BQ=='
     org = 'ab2731@cam.ac.uk'
     bucket = 'Sensor Data'
