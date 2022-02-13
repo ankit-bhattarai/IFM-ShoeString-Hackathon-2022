@@ -15,7 +15,7 @@ url="https://europe-west1-1.gcp.cloud2.influxdata.com"
 client = influxdb_client.InfluxDBClient(
     url=url,
     token=token,
-    org=org
+    org=org, verify_ssl=False
 )
 query_api = client.query_api()
 query = ' from(bucket:"Sensor Data")\
