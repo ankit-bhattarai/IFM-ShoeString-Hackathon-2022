@@ -1,3 +1,4 @@
+"""File used to send email warnings"""
 import smtplib #importing the module
 
 
