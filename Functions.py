@@ -1,5 +1,6 @@
 # Here add all required functions.
 import pandas as pd
+import time
 
 
 def cost_function(df, dt=1, start='08:30:00', end='22:30:00', low_price=0.08, high_price=0.121):
@@ -54,6 +55,31 @@ def summary(dataframe):
     data_dict = {"Total_Energy": total_energy1, "Total_cost": total_cost, "Current_Power": instantaneous_power,
                  "Expected_Cost": expected_cost}
     return data_dict
+
+
+def cost_rate(time, energy):
+    pass
+
+
+class Summary:
+    def __init__(self):
+        self.instantaneous_power = 0
+        self.energy_consumed = 0
+        self.current_cost = 0
+        self.expected_cost = 0
+
+    def update(self, current_time, current_power):
+        self.instantaneous_power = current_power
+        self.energy_consumed += current_power * 1  # E = Pt
+        self.cost += cost_rate(current_time, current_power)
+        self.expected_cost = self.cost
+
+
+robots_df = pd.DataFrame(columns=["Robot Type", "Total Daily Energy", "Total Daily Cost", "Current Power", "Current State",
+                                  "Duration on", "Expeced Times of Operation"])
+
+total_power_df = pd.DataFrame(columns=["Total Power"], index=pd.DatetimeIndex())
+
 def list_of_robots(df):
     list1=[]
     for i in range(len(df)):
