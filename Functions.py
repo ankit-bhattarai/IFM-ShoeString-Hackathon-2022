@@ -82,3 +82,8 @@ def list_of_robots(df):
         if df.Machine[i] not in list1:
             list1.append(df.Machine[i])
     return list1
+
+def expected_savings(df, low_price=0.08, high_price=0.121):
+  function = lambda row: row.peak_hour_energies * (high_price - low_price) if row.peak_hours <= 10 else 10*(row.peak_hour_energies/ row.peak_hours)*(high_price - low_price)
+  results = df.apply(function, axis=1)
+  return results
